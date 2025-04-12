@@ -179,7 +179,8 @@ class MadaraPlugin implements Plugin.PluginBase {
   }
 
   async parseNovel(novelPath: string): Promise<Plugin.SourceNovel> {
-    let loadedCheerio = await this.getCheerio(this.site + novelPath, false);
+    const page = this.site + novelPath.replace(/^\//, '');
+    let loadedCheerio = await this.getCheerio(page, false);
 
     loadedCheerio('.manga-title-badges, #manga-title span').remove();
     const novel: Plugin.SourceNovel = {
@@ -274,9 +275,9 @@ class MadaraPlugin implements Plugin.PluginBase {
     let html = '';
 
     if (this.options?.useNewChapterEndpoint) {
-      html = await fetchApi(this.site + novelPath + 'ajax/chapters/', {
+      html = await fetchApi(page + 'ajax/chapters/', {
         method: 'POST',
-        referrer: this.site + novelPath,
+        referrer: page,
       }).then(res => res.text());
     } else {
       const novelId =
