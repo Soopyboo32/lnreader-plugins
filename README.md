@@ -10,7 +10,7 @@ Community-driven plugin repository for [LNReader](https://github.com/LNReader/ln
 
 ## Quick Start
 
-**Prerequisites:** Node.js >= 22 
+**Prerequisites:** Node.js >= 22
 
 ```bash
 npm install
@@ -25,6 +25,17 @@ npm run dev:start
 - **[Komga Plugin](./docs/komga-plugin.md)** - Self-hosted server integration
 
 ## Testing Methods
+
+### Command Line Flow
+
+```bash
+npm run test:plugin -- <plugin-id-or-name>
+```
+
+This builds the plugins and tests the flow from the terminal: latest and popular
+pages 1 and 2, selected novel details, selected chapter metadata, and selected
+chapter contents. Use `--mode latest` or `--mode popular` to limit the page
+checks.
 
 ### Web Interface
 
