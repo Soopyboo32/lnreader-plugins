@@ -406,6 +406,16 @@
     }
   },
   {
+    "id": "lovelyblossoms",
+    "sourceSite": "https://lovelyblossoms.com/",
+    "sourceName": "Lovely Blossoms",
+    "options": {
+      "useNewChapterEndpoint": true,
+      "lang": "English",
+      "hasLocked": true
+    }
+  },
+  {
     "id": "bellereservoir",
     "sourceSite": "https://bellereservoir.com/",
     "sourceName": "Belle Reservoir",
