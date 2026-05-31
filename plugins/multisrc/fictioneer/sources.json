@@ -65,5 +65,23 @@
       "versionIncrements": 1,
       "browsePage": "stories"
     }
+  },
+  {
+    "id": "gravitytales",
+    "sourceSite": "https://gravitytales.com",
+    "sourceName": "Gravity Tales",
+    "options": {
+      "browsePage": "",
+      "versionIncrements": 1
+    }
+  },
+  {
+    "id": "springofromance",
+    "sourceSite": "https://springofromance.com",
+    "sourceName": "Spring Of Romance",
+    "options": {
+      "browsePage": "stories",
+      "versionIncrements": 1
+    }
   }
 ]

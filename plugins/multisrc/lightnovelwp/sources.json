@@ -317,5 +317,15 @@
       "lang": "English",
       "reverseChapters": true
     }
+  },
+  {
+    "id": "katreadingcafe",
+    "sourceSite": "https://katreadingcafe.com/",
+    "sourceName": "Kat Reading Cafe",
+    "options": {
+      "lang": "English",
+      "reverseChapters": true,
+      "versionIncrements": 1
+    }
   }
 ]

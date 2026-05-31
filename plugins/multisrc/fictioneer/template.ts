@@ -40,7 +40,7 @@ export class FictioneerPlugin implements Plugin.PluginBase {
     loadedCheerio: CheerioAPI,
     selector: string,
   ): Plugin.NovelItem[] {
-    return loadedCheerio(selector)
+    const novels = loadedCheerio(selector)
       .map((i, el) => {
         const element = loadedCheerio(el);
         const novelName = element.find('h3 > a').text();
@@ -56,6 +56,38 @@ export class FictioneerPlugin implements Plugin.PluginBase {
         };
       })
       .toArray();
+
+    if (novels.length) return novels;
+
+    return loadedCheerio('a[href*="/story/"]')
+      .map((i, el) => {
+        const element = loadedCheerio(el);
+        const novelUrl = element.attr('href');
+        const path = novelUrl
+          ? new URL(novelUrl, this.site).pathname.replace(/^\/|\/$/g, '')
+          : '';
+
+        if (!novelUrl || path.split('/').length !== 2) return;
+
+        const card = element.closest('.card, article, li');
+        const novelName =
+          element.attr('title') ||
+          element.text().trim() ||
+          card.find('h3, h2, .card__title').first().text().trim();
+
+        if (!novelName) return;
+
+        return {
+          name: novelName,
+          cover: card.find('img').first().attr('src'),
+          path,
+        };
+      })
+      .toArray()
+      .filter(
+        (novel, index, all) =>
+          novel && all.findIndex(item => item.path === novel.path) === index,
+      );
   }
 
   async popularNovels(
@@ -65,12 +97,11 @@ export class FictioneerPlugin implements Plugin.PluginBase {
     //   filters,
     // }: Plugin.PopularNovelsOptions<typeof this.filters>,
   ): Promise<Plugin.NovelItem[]> {
+    const browsePath = this.options.browsePage
+      ? '/' + this.options.browsePage + '/'
+      : '/';
     const req = await fetchApi(
-      this.site +
-        '/' +
-        this.options.browsePage +
-        '/' +
-        (pageNo === 1 ? '' : 'page/' + pageNo + '/'),
+      this.site + browsePath + (pageNo === 1 ? '' : 'page/' + pageNo + '/'),
     );
     const body = await req.text();
     const loadedCheerio = loadCheerio(body);
